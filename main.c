@@ -57,7 +57,7 @@ void beep(unsigned char t)
 }
 
 // 0 in => random 1-6 out
-// 1-6 in => random neigboring 1-6 out
+// 1-6 in => random neighboring 1-6 out
 unsigned char rolldie(unsigned char d)
 {
     const static unsigned char nextface[6][4] =
@@ -154,6 +154,12 @@ void interrupt isr(void)
             rand_push(TMR0);
             if(velocity == 0)
                 velocity = INITVELOCITY;
+            else
+            {
+                velocity += 3;
+                if(velocity > MAXVELOCITY)
+                    velocity = MAXVELOCITY;
+            }
         }
         else // button up
             rand_push(~TMR0);
